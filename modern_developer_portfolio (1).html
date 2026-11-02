@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yassa Zikry Hendy - Software Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                            glow: '#818cf8',
+                        },
+                        dark: {
+                            bg: '#0b0f19',
+                            card: '#111827',
+                            border: '#1f2937',
+                            muted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3);
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 35px 0px rgba(99, 102, 241, 0.5);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-dark-bg text-slate-800 dark:text-slate-100 transition-colors duration-300 custom-scrollbar antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 bg-slate-900 dark:bg-slate-800 text-white px-5 py-3.5 rounded-xl border border-slate-700 shadow-2xl pointer-events-none">
+        <i id="toast-icon" class="fas fa-check-circle text-emerald-400 text-lg"></i>
+        <span id="toast-msg" class="text-sm font-medium">Copied to clipboard!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/70 dark:bg-dark-bg/80 border-b border-slate-200 dark:border-dark-border/60 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold tracking-tight flex items-center gap-2 group">
+                <span class="w-9 h-9 rounded-lg bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 border border-brand-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <i class="fas fa-code text-sm"></i>
+                </span>
+                <span class="gradient-text font-extrabold text-lg">Yassa.Dev</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-1 border border-slate-200 dark:border-slate-800/80 rounded-full px-4 py-1.5 bg-slate-100/50 dark:bg-dark-card/50">
+                <a href="#hero" class="nav-link px-4 py-2 text-sm font-medium rounded-full transition-colors hover:text-brand-500 dark:hover:text-brand-400">Home</a>
+                <a href="#about" class="nav-link px-4 py-2 text-sm font-medium rounded-full transition-colors hover:text-brand-500 dark:hover:text-brand-400">About & Skills</a>
+                <a href="#projects" class="nav-link px-4 py-2 text-sm font-medium rounded-full transition-colors hover:text-brand-500 dark:hover:text-brand-400">Projects</a>
+                <a href="#services" class="nav-link px-4 py-2 text-sm font-medium rounded-full transition-colors hover:text-brand-500 dark:hover:text-brand-400">Services</a>
+                <a href="#contact" class="nav-link px-4 py-2 text-sm font-medium rounded-full transition-colors hover:text-brand-500 dark:hover:text-brand-400">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" type="button" aria-label="Toggle theme" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-dark-card border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 transition-all hover:scale-105">
+                    <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-sm"></i>
+                    <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-amber-400 text-sm"></i>
+                </button>
+
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold shadow-lg shadow-brand-500/20 transition-all hover:-translate-y-0.5">
+                    <span>Hire Me</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" type="button" class="md:hidden w-10 h-10 rounded-xl bg-slate-200 dark:bg-dark-card border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-card px-4 pt-2 pb-6 space-y-2">
+            <a href="#hero" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium hover:bg-brand-500/10 hover:text-brand-500">Home</a>
+            <a href="#about" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium hover:bg-brand-500/10 hover:text-brand-500">About & Skills</a>
+            <a href="#projects" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium hover:bg-brand-500/10 hover:text-brand-500">Projects</a>
+            <a href="#services" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium hover:bg-brand-500/10 hover:text-brand-500">Services</a>
+            <a href="#contact" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium hover:bg-brand-500/10 hover:text-brand-500">Contact</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-[calc(100vh-5rem)] flex items-center justify-center py-20 overflow-hidden">
+            <!-- Decorative Glow Backgrounds -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/15 dark:bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm font-medium mb-8">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Available for freelance projects & full-time roles
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight">
+                    Crafting <span class="gradient-text">Robust Software</span> & Secure Web Systems
+                </h1>
+
+                <p class="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
+                    Hi, I'm <strong class="text-slate-900 dark:text-white font-semibold">Yassa Zikry Hendy</strong>. A Software Developer dedicated to building efficient web applications, database systems, and secure software environments.
+                </p>
+
+                <!-- Action CTA Buttons -->
+                <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-xl shadow-brand-500/25 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <span>View Projects</span>
+                        <i class="fas fa-arrow-down text-xs"></i>
+                    </a>
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-200 dark:bg-dark-card border border-slate-300 dark:border-slate-800 hover:bg-slate-300 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-semibold transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <span>Contact Me</span>
+                        <i class="fas fa-envelope text-xs text-slate-400"></i>
+                    </a>
+                    <button onclick="copyToClipboard('yassa03.zh@gmail.com', 'Email address copied!')" class="px-4 py-4 rounded-xl bg-slate-200 dark:bg-dark-card border border-slate-300 dark:border-slate-800 hover:text-brand-500 dark:hover:text-brand-400 transition-all" title="Copy Email">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- Stats summary -->
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                    <div class="p-4 rounded-2xl bg-white/50 dark:bg-dark-card/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm">
+                        <div class="text-3xl font-bold gradient-text">5+</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Years Experience</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/50 dark:bg-dark-card/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm">
+                        <div class="text-3xl font-bold gradient-text">30+</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Projects Completed</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/50 dark:bg-dark-card/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm">
+                        <div class="text-3xl font-bold gradient-text">99.9%</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Code Reliability</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/50 dark:bg-dark-card/40 border border-slate-200 dark:border-slate-800/60 backdrop-blur-sm">
+                        <div class="text-3xl font-bold gradient-text">15+</div>
+                        <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Happy Clients</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT & SKILLS SECTION -->
+        <section id="about" class="py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                    <!-- About Info -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="inline-flex items-center gap-2 text-brand-500 text-sm font-semibold uppercase tracking-wider">
+                            <i class="fas fa-user-check"></i>
+                            <span>About Me</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                            Passionate about clean code and system stability.
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            I am Yassa Zikry Hendy, a Software Developer with expertise across object-oriented programming, relational databases, web development, and security tools.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            My focus ranges from frontend UI design to backend logic with PHP, C#, and Python, as well as network infrastructure configuration and application security auditing.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Whether designing dark-mode web experiences, optimizing database queries, or performing penetration tests on REST APIs, I deliver solutions optimized for scale.
+                        </p>
+
+                        <!-- Highlights -->
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm font-medium">Clean Architecture</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm font-medium">Security First</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm font-medium">Responsive UI/UX</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm font-medium">Fast Turnaround</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Tech Stack Badges -->
+                    <div class="lg:col-span-7 bg-white dark:bg-dark-card p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fas fa-layer-group text-brand-500"></i>
+                                Tech Stack & Skills
+                            </h3>
+
+                            <!-- Skill Filters -->
+                            <div id="skill-filters" class="flex flex-wrap gap-1.5 p-1 bg-slate-100 dark:bg-dark-bg rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-800">
+                                <button class="skill-tab active px-3 py-1.5 rounded-lg bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow-sm transition-all" data-category="all">All</button>
+                                <button class="skill-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="frontend">Frontend</button>
+                                <button class="skill-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="backend">Backend</button>
+                                <button class="skill-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="security">Security</button>
+                                <button class="skill-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="devops">DevOps</button>
+                            </div>
+                        </div>
+
+                        <!-- Skill Items Grid -->
+                        <div id="skills-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <div class="inline-flex items-center gap-2 text-brand-500 text-sm font-semibold uppercase tracking-wider mb-2">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Featured Work</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        Selected Projects & Solutions
+                    </h2>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 text-base">
+                        Explore real-world web applications built with modern stacks, smooth user interfaces, and robust server architectures.
+                    </p>
+                </div>
+
+                <!-- Project Category Filters -->
+                <div class="flex justify-center mb-10 overflow-x-auto pb-2">
+                    <div id="project-filters" class="flex gap-2 p-1.5 bg-white dark:bg-dark-card rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <button class="project-tab active-project-tab px-4 py-2 rounded-xl text-sm font-medium transition-all bg-brand-600 text-white shadow-md" data-category="all">All Projects</button>
+                        <button class="project-tab px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="web">Web Apps</button>
+                        <button class="project-tab px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="ecommerce">E-Commerce</button>
+                        <button class="project-tab px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="healthcare">Healthcare</button>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-flex items-center gap-2 text-brand-500 text-sm font-semibold uppercase tracking-wider mb-2">
+                        <i class="fas fa-cogs"></i>
+                        <span>Services</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        Solutions Offered
+                    </h2>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400 text-base">
+                        Custom end-to-end web engineering services tailored to bring your vision to market fast.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service Card 1 -->
+                    <div class="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white transition-all">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Full-Stack Web Apps</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            End-to-end development of responsive, modern web applications built using React, Vue, Tailwind CSS, and Node.js.
+                        </p>
+                        <ul class="space-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-500"></i> Single Page Applications</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-500"></i> Responsive Dark/Light UI</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-brand-500"></i> State Management & SSR</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Backend & API Design</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            High-throughput RESTful and GraphQL API design with robust database architecture and authentication systems.
+                        </p>
+                        <ul class="space-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Microservices & Node/Python</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> SQL/NoSQL Database Design</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> JWT/OAuth Security</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Security & Auditing</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            Vulnerability assessments, code review, and implementation of OWASP security standards for web applications.
+                        </p>
+                        <ul class="space-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-500"></i> Code Audit & Vulnerability Scans</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-500"></i> SSL/TLS & Encryption Setup</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-500"></i> Threat Mitigation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 group">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Custom Web Solutions</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            Custom business workflow engines, internal dashboards, theme transformations, and payment gateway integrations.
+                        </p>
+                        <ul class="space-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-amber-500"></i> Stripe/PayPal Integration</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-amber-500"></i> Custom Dashboards</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-amber-500"></i> Performance Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Contact Info Column -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <div class="inline-flex items-center gap-2 text-brand-500 text-sm font-semibold uppercase tracking-wider mb-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Get In Touch</span>
+                            </div>
+                            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                                Let's build something extraordinary together.
+                            </h2>
+                            <p class="mt-4 text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                                Interested in starting a project, hiring me, or discussing custom solutions? Drop a message and I'll get back to you within 24 hours.
+                            </p>
+                        </div>
+
+                        <!-- Direct Cards -->
+                        <div class="space-y-4">
+                            <!-- Email Copy Item -->
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-lg">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-slate-500 dark:text-slate-400">Direct Email</div>
+                                        <a href="mailto:yassa03.zh@gmail.com" class="text-sm font-semibold text-slate-900 dark:text-white hover:text-brand-500">yassa03.zh@gmail.com</a>
+                                    </div>
+                                </div>
+                                <button onclick="copyToClipboard('yassa03.zh@gmail.com', 'Email copied to clipboard!')" class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:text-brand-500 text-slate-500 dark:text-slate-400 transition-colors" title="Copy Email">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+
+                            <!-- Phone Copy Item -->
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-lg">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-slate-500 dark:text-slate-400">Phone / WhatsApp</div>
+                                        <a href="tel:+201024908237" class="text-sm font-semibold text-slate-900 dark:text-white hover:text-emerald-500">+20 102 490 8237</a>
+                                    </div>
+                                </div>
+                                <button onclick="copyToClipboard('+201024908237', 'Phone number copied!')" class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:text-emerald-500 text-slate-500 dark:text-slate-400 transition-colors" title="Copy Phone">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Social Profiles -->
+                        <div>
+                            <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">Connect on Social</div>
+                            <div class="flex gap-3">
+                                <a href="https://www.linkedin.com/in/yassa-zikry-a39a6231b/" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white hover:border-brand-600 transition-all shadow-sm" title="LinkedIn Profile">
+                                    <i class="fab fa-linkedin-in text-lg"></i>
+                                </a>
+                                <a href="mailto:yassa03.zh@gmail.com" class="w-11 h-11 rounded-xl bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white hover:border-brand-600 transition-all shadow-sm" title="Send Email">
+                                    <i class="fas fa-paper-plane text-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-7">
+                        <form id="contact-form" class="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-6" onsubmit="handleContactSubmit(event)">
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Send a Message</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Name -->
+                                <div>
+                                    <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Your Name *</label>
+                                    <input type="text" id="name" required placeholder="John Doe" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                </div>
+                                <!-- Email -->
+                                <div>
+                                    <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Your Email *</label>
+                                    <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                </div>
+                            </div>
+
+                            <!-- Service Selection -->
+                            <div>
+                                <label for="service-type" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Interested Service</label>
+                                <select id="service-type" class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                                    <option value="Full-Stack Web App">Full-Stack Web App</option>
+                                    <option value="Backend & API Design">Backend & API Design</option>
+                                    <option value="Security & Auditing">Security & Auditing</option>
+                                    <option value="Custom Web Solutions">Custom Web Solutions</option>
+                                    <option value="Other Project Request">Other Project Request</option>
+                                </select>
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Project Details *</label>
+                                <textarea id="message" rows="5" required placeholder="Tell me about your project timelines, budget, and scope..." class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-xl shadow-brand-500/20 transition-all flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane text-sm"></i>
+                                <span>Send Message</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-md bg-brand-500/10 text-brand-500 flex items-center justify-center">
+                    <i class="fas fa-code text-xs"></i>
+                </span>
+                <span class="font-bold text-slate-900 dark:text-white text-sm">Yassa Zikry Hendy</span>
+                <span class="text-xs text-slate-400">© 2026. All rights reserved.</span>
+            </div>
+            
+            <div class="flex gap-6 text-xs text-slate-500 dark:text-slate-400">
+                <a href="#hero" class="hover:text-brand-500">Back to top</a>
+                <a href="https://www.linkedin.com/in/yassa-zikry-a39a6231b/" target="_blank" class="hover:text-brand-500">LinkedIn</a>
+                <a href="mailto:yassa03.zh@gmail.com" class="hover:text-brand-500">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DYNAMIC PROJECT MODAL OVERLAY -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="modal-container" class="bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-800 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span id="modal-category" class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 uppercase tracking-wider">Category</span>
+                    <h3 id="modal-title" class="text-xl font-bold text-slate-900 dark:text-white">Project Title</h3>
+                </div>
+                <button onclick="closeProjectModal()" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar">
+                <!-- Project Image Preview -->
+                <div class="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-900">
+                    <img id="modal-image" src="" alt="Project Preview" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Overview</h4>
+                    <p id="modal-description" class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- Technical Features -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Key Highlights & Features</h4>
+                    <ul id="modal-highlights" class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <!-- Populated via JS -->
+                    </ul>
+                </div>
+
+                <!-- Tech Stack Tags -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Technologies Used</h4>
+                    <div id="modal-tags" class="flex flex-wrap gap-2">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex flex-wrap items-center justify-between gap-4">
+                <button onclick="closeProjectModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    Close
+                </button>
+                <div class="flex gap-3">
+                    <a id="modal-demo-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold shadow-lg shadow-brand-500/20 transition-all flex items-center gap-2">
+                        <span>Live Demo</span>
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA: Tech Stack Skills for Yassa Zikry Hendy
+        const skillsData = [
+            { name: "HTML5 & CSS3", category: "frontend", icon: "fab fa-html5", color: "text-orange-500" },
+            { name: "JavaScript", category: "frontend", icon: "fab fa-js", color: "text-amber-400" },
+            { name: "Tailwind CSS", category: "frontend", icon: "fas fa-code", color: "text-sky-400" },
+            { name: "Responsive Design", category: "frontend", icon: "fas fa-mobile-alt", color: "text-blue-400" },
+            { name: "Python", category: "backend", icon: "fab fa-python", color: "text-amber-400" },
+            { name: "C# / .NET", category: "backend", icon: "fas fa-laptop-code", color: "text-purple-400" },
+            { name: "C++", category: "backend", icon: "fas fa-terminal", color: "text-blue-500" },
+            { name: "PHP", category: "backend", icon: "fab fa-php", color: "text-indigo-400" },
+            { name: "SQL / MySQL", category: "backend", icon: "fas fa-database", color: "text-cyan-400" },
+            { name: "Network Security", category: "security", icon: "fas fa-shield-alt", color: "text-red-400" },
+            { name: "Token Auth / Bearer", category: "security", icon: "fas fa-key", color: "text-amber-500" },
+            { name: "Kali Linux & Nmap", category: "security", icon: "fas fa-terminal", color: "text-emerald-400" },
+            { name: "VMware Workstation", category: "devops", icon: "fas fa-desktop", color: "text-blue-400" },
+            { name: "Git & GitHub", category: "devops", icon: "fab fa-github", color: "text-slate-300" },
+            { name: "VS Code", category: "devops", icon: "fas fa-code-branch", color: "text-sky-500" }
+        ];
+
+        // DATA: Featured Projects for Yassa Zikry Hendy
+        const projectsData = [
+            {
+                id: "space-magic-cafe",
+                title: "Space Magic Cafe Website",
+                category: "web",
+                categoryLabel: "Web Design",
+                shortDesc: "A sleek, dark-themed responsive web portal designed for an artisan modern cafe experience.",
+                fullDesc: "Space Magic Cafe is a dark-mode web application featuring interactive cafe menus, table pre-booking concepts, and dynamic smooth-scrolling UI components optimized for desktop and mobile devices.",
+                image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+                tags: ["HTML5", "CSS3", "JavaScript", "Responsive UI"],
+                highlights: [
+                    "Custom dark theme UI tailored for coffee & bakery brands",
+                    "Smooth scrolling navigation with dynamic product filtering",
+                    "Fully responsive mobile layout with optimized asset loading"
+                ],
+                demoUrl: "#"
+            },
+            {
+                id: "ecommerce-appliances",
+                title: "Home Appliances E-Commerce",
+                category: "ecommerce",
+                categoryLabel: "E-Commerce",
+                shortDesc: "Full-stack online platform showcasing home electronics with dynamic SQL queries and cart flows.",
+                fullDesc: "An online store management system designed for selling household appliances. Built with backend PHP logic and SQL databases to handle product catalogs, pricing calculations, and user session management.",
+                image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+                tags: ["PHP", "SQL", "JavaScript", "HTML/CSS"],
+                highlights: [
+                    "SQL database integration for product management and pricing",
+                    "Dynamic product search and attribute filtering",
+                    "Session-based shopping cart management"
+                ],
+                demoUrl: "#"
+            },
+            {
+                id: "online-pharmacy",
+                title: "Online Pharmacy System",
+                category: "healthcare",
+                categoryLabel: "Management System",
+                shortDesc: "Complete software solution for managing pharmaceutical inventories, customer orders, and prescription records.",
+                fullDesc: "A desktop and web-assisted application developed in C# and SQL for streamlined medical stock tracking, patient medicine orders, and prescription logging with secure data handling.",
+                image: "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=800&q=80",
+                tags: ["C#", "SQL", "HTML/CSS"],
+                highlights: [
+                    "Structured C# object-oriented business logic architecture",
+                    "SQL database management for medicine quantities & categories",
+                    "Clear UI interfaces for swift inventory navigation"
+                ],
+                demoUrl: "#"
+            }
+        ];
+
+        // RENDER SKILLS
+        function renderSkills(filterCategory = 'all') {
+            const container = document.getElementById('skills-container');
+            container.innerHTML = '';
+
+            const filtered = filterCategory === 'all' 
+                ? skillsData 
+                : skillsData.filter(s => s.category === filterCategory);
+
+            filtered.forEach(skill => {
+                const badge = document.createElement('div');
+                badge.className = "flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500/50 transition-all hover:scale-[1.02]";
+                badge.innerHTML = `
+                    <div class="w-9 h-9 rounded-lg bg-slate-200/50 dark:bg-slate-800 flex items-center justify-center text-lg ${skill.color}">
+                        <i class="${skill.icon}"></i>
+                    </div>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">${skill.name}</span>
+                `;
+                container.appendChild(badge);
+            });
+        }
+
+        // RENDER PROJECTS
+        function renderProjects(filterCategory = 'all') {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            const filtered = filterCategory === 'all'
+                ? projectsData
+                : projectsData.filter(p => p.category === filterCategory);
+
+            filtered.forEach(project => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-dark-card rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group hover:-translate-y-1";
+                
+                const tagsHtml = project.tags.map(tag => 
+                    `<span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium">${tag}</span>`
+                ).join('');
+
+                card.innerHTML = `
+                    <div class="relative h-52 overflow-hidden bg-slate-900">
+                        <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-900/80 backdrop-blur-md text-brand-400 border border-slate-700">
+                                ${project.categoryLabel}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">${project.title}</h3>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">${project.shortDesc}</p>
+                        </div>
+                        <div class="space-y-4 pt-2">
+                            <div class="flex flex-wrap gap-1.5">
+                                ${tagsHtml}
+                            </div>
+                            <button onclick="openProjectModal('${project.id}')" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-brand-600 hover:text-white text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                                <span>View Details & Tech</span>
+                                <i class="fas fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // MODAL HANDLERS
+        function openProjectModal(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-category').textContent = project.categoryLabel;
+            document.getElementById('modal-description').textContent = project.fullDesc;
+            document.getElementById('modal-image').src = project.image;
+            document.getElementById('modal-demo-btn').href = project.demoUrl;
+
+            // Highlights
+            const highlightsList = document.getElementById('modal-highlights');
+            highlightsList.innerHTML = project.highlights.map(h => `
+                <li class="flex items-start gap-2.5">
+                    <i class="fas fa-check-circle text-brand-500 text-xs mt-1"></i>
+                    <span>${h}</span>
+                </li>
+            `).join('');
+
+            // Tags
+            const tagsContainer = document.getElementById('modal-tags');
+            tagsContainer.innerHTML = project.tags.map(t => `
+                <span class="px-3 py-1 rounded-lg bg-brand-500/10 border border-brand-500/20 text-brand-500 dark:text-brand-400 text-xs font-medium">${t}</span>
+            `).join('');
+
+            // Show Modal
+            const modal = document.getElementById('project-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-95');
+            container.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // TOAST NOTIFICATION
+        function copyToClipboard(text, message) {
+            // ExecCommand fallback for iframe safety
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(message || 'Copied to clipboard!');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // CONTACT FORM SUBMISSION
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin text-sm"></i> <span>Sending...</span>`;
+
+            setTimeout(() => {
+                showToast("Message sent successfully! I'll contact you soon.");
+                document.getElementById('contact-form').reset();
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-paper-plane text-sm"></i> <span>Send Message</span>`;
+            }, 1200);
+        }
+
+        // INITIALIZATION & EVENT LISTENERS
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render initial items
+            renderSkills();
+            renderProjects();
+
+            // Skill Tab Filtering
+            const skillTabs = document.querySelectorAll('.skill-tab');
+            skillTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    skillTabs.forEach(t => {
+                        t.classList.remove('bg-white', 'dark:bg-brand-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+                        t.classList.add('text-slate-600', 'dark:text-slate-400');
+                    });
+                    tab.classList.add('bg-white', 'dark:bg-brand-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+                    tab.classList.remove('text-slate-600', 'dark:text-slate-400');
+                    
+                    renderSkills(tab.getAttribute('data-category'));
+                });
+            });
+
+            // Project Tab Filtering
+            const projectTabs = document.querySelectorAll('.project-tab');
+            projectTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    projectTabs.forEach(t => {
+                        t.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+                        t.classList.add('text-slate-600', 'dark:text-slate-400');
+                    });
+                    tab.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+                    tab.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+                    renderProjects(tab.getAttribute('data-category'));
+                });
+            });
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Theme Toggle Setup (Defaults Dark Theme)
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            function updateThemeIcons() {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            }
+
+            // Set dark mode as default
+            document.documentElement.classList.add('dark');
+            updateThemeIcons();
+
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                updateThemeIcons();
+            });
+
+            // Modal backdrop close on click
+            const modal = document.getElementById('project-modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeProjectModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
